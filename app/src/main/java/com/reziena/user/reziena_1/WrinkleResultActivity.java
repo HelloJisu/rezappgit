@@ -41,6 +41,7 @@ public class WrinkleResultActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_wrinkle_result);
+    mainactivity.finish();
 
     WindowManager.LayoutParams lpWindow = new WindowManager.LayoutParams();
     lpWindow.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
@@ -92,7 +93,7 @@ public class WrinkleResultActivity extends AppCompatActivity {
           case R.id.okay: case R.id.imageButton:
             // Dashboard로 넘어가게 하기
             homeactivity.dashback.setImageResource(0);
-            mainactivity.finish();
+
             finish();
             break;
 
