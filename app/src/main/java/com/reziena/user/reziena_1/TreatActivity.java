@@ -137,7 +137,6 @@ public class TreatActivity extends AppCompatActivity {
                     case R.id.backbutton:
                             finish();
                         break;
-
                     case R.id.underright:
                         intent = new Intent(getBaseContext(), TreatActivity_underright.class);
                         startActivity(intent);

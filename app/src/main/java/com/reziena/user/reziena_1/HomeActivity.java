@@ -504,13 +504,27 @@ public class HomeActivity extends AppCompatActivity {
                         doTakeAlbumAction();
                         break;
                     case R.id.imageView2:
-                        intent = new Intent(getApplicationContext(), BluetoothActivity.class);
-                        screenshot();
+                        new Handler().postDelayed(new Runnable()
+                        {
+                            @Override
+                            public void run()
+                            {
+                                screenshot();
+                            }
+                        }, 20);
                         startActivity(intent);
                         break;
                     case R.id.setting:
                         intent = new Intent(getApplicationContext(), SettingActivity.class);
-                        screenshotdash();
+                        new Handler().postDelayed(new Runnable()
+                        {
+                            @Override
+                            public void run()
+                            {
+                                screenshotdash();
+                            }
+                        }, 20);
+
                         startActivity(intent);
                         break;
                 }
