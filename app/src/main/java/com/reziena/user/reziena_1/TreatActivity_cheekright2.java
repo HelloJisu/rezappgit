@@ -120,7 +120,7 @@ public class TreatActivity_cheekright2 extends AppCompatActivity {
                             if (count == 5) {
                                 ctrani18.stop();
                                 c_tright_line18.setBackgroundResource(R.drawable.line123finish);
-                                c_tright_line19.setBackgroundResource(R.drawable.cheekrightanim1);
+                                c_tright_line19.setBackgroundResource(R.drawable.cheekrightmiddle1);
                                 ctrani19 = (AnimationDrawable) c_tright_line19.getBackground();
                                 ctrani19.start();
                                 c_tright_txt1.setText("4 left");
@@ -213,7 +213,7 @@ public class TreatActivity_cheekright2 extends AppCompatActivity {
                             if (count == 16) {
                                 ctrani7.stop();
                                 c_tright_line7.setBackgroundResource(R.drawable.line1finish);
-                                c_tright_line8.setBackgroundResource(R.drawable.cheekrightanim2);
+                                c_tright_line8.setBackgroundResource(R.drawable.cheekrightmiddle2);
                                 ctrani8 = (AnimationDrawable) c_tright_line8.getBackground();
                                 ctrani8.start();
                                 c_tright_txt2.setText("7 left");

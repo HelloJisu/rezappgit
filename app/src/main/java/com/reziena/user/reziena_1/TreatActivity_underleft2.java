@@ -111,7 +111,7 @@ public class TreatActivity_underleft2 extends AppCompatActivity {
                             if (count == 4) {
                                 utlani10.stop();
                                 u_tleft_line10.setBackgroundResource(R.drawable.line9finish);
-                                u_tleft_line11.setBackgroundResource(R.drawable.underleftanim1);
+                                u_tleft_line11.setBackgroundResource(R.drawable.underleftmiddle1);
                                 utlani11 = (AnimationDrawable) u_tleft_line11.getBackground();
                                 utlani11.start();
                                 u_tleft_txt1.setText("3 left");
@@ -164,7 +164,7 @@ public class TreatActivity_underleft2 extends AppCompatActivity {
                             if (count == 10) {
                                 utlani3.stop();
                                 u_tleft_line3.setBackgroundResource(R.drawable.line5finish);
-                                u_tleft_line4.setBackgroundResource(R.drawable.underleftanim2);
+                                u_tleft_line4.setBackgroundResource(R.drawable.underleftmiddle2);
                                 utlani4 = (AnimationDrawable) u_tleft_line4.getBackground();
                                 utlani4.start();
                                 u_tleft_txt2.setText("4 left");

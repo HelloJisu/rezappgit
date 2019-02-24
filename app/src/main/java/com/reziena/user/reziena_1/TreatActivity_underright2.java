@@ -99,7 +99,7 @@ public class TreatActivity_underright2 extends AppCompatActivity {
                             if (count == 4) {
                                 utrani10.stop();
                                 u_tright_line10.setBackgroundResource(R.drawable.line8finish);
-                                u_tright_line11.setBackgroundResource(R.drawable.underrightanim1);
+                                u_tright_line11.setBackgroundResource(R.drawable.underrightmiddle1);
                                 utrani11 = (AnimationDrawable) u_tright_line11.getBackground();
                                 utrani11.start();
                                 u_tright_txt1.setText("3 left");
@@ -151,7 +151,7 @@ public class TreatActivity_underright2 extends AppCompatActivity {
                             if (count == 10) {
                                 utrani3.stop();
                                 u_tright_line3.setBackgroundResource(R.drawable.line1finish);
-                                u_tright_line4.setBackgroundResource(R.drawable.underrightanim2);
+                                u_tright_line4.setBackgroundResource(R.drawable.underrightmiddle2);
                                 utrani4 = (AnimationDrawable) u_tright_line4.getBackground();
                                 utrani4.start();
                                 u_tright_txt2.setText("4 left");

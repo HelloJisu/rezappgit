@@ -100,7 +100,7 @@ public class TreatActivity_cheekleft2 extends AppCompatActivity {
                             if (count == 5) {
                                 ctlani18.stop();
                                 c_tleft_line18.setBackgroundResource(R.drawable.line321finish);
-                                c_tleft_line19.setBackgroundResource(R.drawable.cheekleftanim1);
+                                c_tleft_line19.setBackgroundResource(R.drawable.cheekleftmiddle1);
                                 ctlani19 = (AnimationDrawable) c_tleft_line19.getBackground();
                                 ctlani19.start();
                                 c_tleft_txt1.setText("4 left");
@@ -193,7 +193,7 @@ public class TreatActivity_cheekleft2 extends AppCompatActivity {
                             if (count == 16) {
                                 ctlani7.stop();
                                 c_tleft_line7.setBackgroundResource(R.drawable.line5finish);
-                                c_tleft_line8.setBackgroundResource(R.drawable.cheekleftanim2);
+                                c_tleft_line8.setBackgroundResource(R.drawable.cheekleftmiddle2);
                                 ctlani8 = (AnimationDrawable) c_tleft_line8.getBackground();
                                 ctlani8.start();
                                 c_tleft_txt2.setText("7 left");
