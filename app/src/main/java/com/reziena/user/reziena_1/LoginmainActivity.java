@@ -117,6 +117,7 @@ public class LoginmainActivity extends AppCompatActivity {
     }
 
     class Login extends AsyncTask<String, Void, String> {
+        String saveID="", savePW="", getName="";
 
         @Override
         protected void onPostExecute(String result) {
@@ -124,24 +125,38 @@ public class LoginmainActivity extends AppCompatActivity {
 
             Log.e("onPostExecute", "response - " + result);
 
-            if (result == null){
-                Log.e("onPostExecute", "erre");
-            }
-            else {
+            if ((result == null)||(result.contains("No_results/"))){
+                // 아이디나 비번을 다시 확인해주세요!
+                Intent intent = new Intent(getApplicationContext(), LoginnoActivity.class);
+                startActivity(intent);
+                etID.setText("");
+                etPassword.setText("");
+            } else {
+                // 로그인
                 showResult(result);
+                SharedPreferences sp_userName = getSharedPreferences("userName", MODE_PRIVATE);
+                SharedPreferences sp_userID = getSharedPreferences("userID", MODE_PRIVATE);
+                SharedPreferences.Editor editor1 = sp_userName.edit();
+                SharedPreferences.Editor editor2 = sp_userID.edit();
+                editor1.putString("userName", getName);
+                editor2.putString("userID", id);
+                editor1.commit();
+                editor2.commit();
+                Log.e("Login ", getName+"님 로그인");
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                startActivity(intent);
+                finish();
             }
-            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-            startActivity(intent);
         }
 
         @Override
         protected String doInBackground(String... params) {
             String serverURL = params[0];
 
-            id = params[1];
-            String pw = params[2];
+            saveID = params[1];
+            savePW = params[2];
 
-            String postParameters = "id="+id+"&pw="+pw;
+            String postParameters = "id="+saveID+"&pw="+savePW;
 
             try {
                 URL url = new URL(serverURL);
@@ -197,30 +212,15 @@ public class LoginmainActivity extends AppCompatActivity {
         private void showResult(String result){
             try {
                 JSONObject jsonObject = new JSONObject(result);
-                JSONArray jsonArray = jsonObject.getJSONArray("login");
+                JSONArray jsonArray = jsonObject.getJSONArray("getData");
 
                 for(int i=0;i<jsonArray.length();i++){
 
                     JSONObject item = jsonArray.getJSONObject(i);
-
-                    String name = item.getString("name");
-
-                    SharedPreferences sp_userName = getSharedPreferences("userName", MODE_PRIVATE);
-                    SharedPreferences sp_userID = getSharedPreferences("userID", MODE_PRIVATE);
-                    SharedPreferences.Editor editor1 = sp_userName.edit();
-                    SharedPreferences.Editor editor2 = sp_userID.edit();
-                    editor1.putString("userName", name);
-                    editor2.putString("userID", id);
-                    editor1.commit();
-                    editor2.commit();
-                    Log.e("Login ", name+"님 로그인");
-                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                    startActivity(intent);
-                    finish();
+                    getName= item.getString("name");
                 }
-
             } catch (JSONException e) {
-                Log.d("JSON", "showResult : ", e);
+                Log.d("login-JSON", "showResult : "+e.getMessage());
             }
 
         }

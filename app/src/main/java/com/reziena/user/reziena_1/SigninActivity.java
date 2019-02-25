@@ -1,8 +1,10 @@
 package com.reziena.user.reziena_1;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -16,6 +18,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.regex.Pattern;
 
 public class SigninActivity extends AppCompatActivity {
@@ -92,48 +100,6 @@ public class SigninActivity extends AppCompatActivity {
                         }
                     });
 
-                    signin_signin.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            // 이메일 입력 확인
-                            if( etEmail.getText().toString().length() == 0 ) {
-                                Toast.makeText(SigninActivity.this, "Email을 입력하세요!", Toast.LENGTH_SHORT).show();
-                                etEmail.requestFocus();
-                                return;
-                            }
-
-                            // 비밀번호 입력 확인
-                            if( etPassword.getText().toString().length() == 0 ) {
-                                Toast.makeText(SigninActivity.this, "비밀번호를 입력하세요!", Toast.LENGTH_SHORT).show();
-                                etPassword.requestFocus();
-                                return;
-                            }
-
-                            // 비밀번호 확인 입력 확인
-                            if( etPasswordConfirm.getText().toString().length() == 0 ) {
-                                Toast.makeText(SigninActivity.this, "비밀번호 확인을 입력하세요!", Toast.LENGTH_SHORT).show();
-                                etPasswordConfirm.requestFocus();
-                                return;
-                            }
-
-                            // 비밀번호 일치 확인
-                            if( !etPassword.getText().toString().equals(etPasswordConfirm.getText().toString()) ) {
-                                Toast.makeText(SigninActivity.this, "비밀번호가 일치하지 않습니다!", Toast.LENGTH_SHORT).show();
-                                etPassword.setText("");
-                                etPasswordConfirm.setText("");
-                                etPassword.requestFocus();
-                                return;
-                            }
-
-                            Intent intent = new Intent(getApplicationContext(),Signin2Activity.class);
-                            intent.putExtra("id",etEmail.getText().toString());
-                            intent.putExtra("password",etPassword.getText().toString());
-                            startActivity(intent);
-                            finish();
-                        }
-                    });
-
                     etPasswordConfirm.addTextChangedListener(new TextWatcher() {
                         @Override
                         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -164,21 +130,146 @@ public class SigninActivity extends AppCompatActivity {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
-
-            }
+            public void afterTextChanged(Editable s) {}
         });
 
-        login_signin.setOnClickListener(new View.OnClickListener() {
+        signin_signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),Signin2Activity.class);
-                startActivity(intent);
-                finish();
+
+                // 이메일 입력 확인
+                if( etEmail.getText().toString().length() == 0 ) {
+                    Toast.makeText(SigninActivity.this, "Email을 입력하세요!", Toast.LENGTH_SHORT).show();
+                    etEmail.requestFocus();
+                    return;
+                }
+
+                // 비밀번호 입력 확인
+                if( etPassword.getText().toString().length() == 0 ) {
+                    Toast.makeText(SigninActivity.this, "비밀번호를 입력하세요!", Toast.LENGTH_SHORT).show();
+                    etPassword.requestFocus();
+                    return;
+                }
+
+                // 비밀번호 확인 입력 확인
+                if( etPasswordConfirm.getText().toString().length() == 0 ) {
+                    Toast.makeText(SigninActivity.this, "비밀번호 확인을 입력하세요!", Toast.LENGTH_SHORT).show();
+                    etPasswordConfirm.requestFocus();
+                    return;
+                }
+
+                // 비밀번호 일치 확인
+                if( !etPassword.getText().toString().equals(etPasswordConfirm.getText().toString()) ) {
+                    Toast.makeText(SigninActivity.this, "비밀번호가 일치하지 않습니다!", Toast.LENGTH_SHORT).show();
+                    etPassword.setText("");
+                    etPasswordConfirm.setText("");
+                    etPassword.requestFocus();
+                    return;
+                }
+
+                getUser task = new getUser();
+                task.execute("http://"+HomeActivity.IP_Address+"/getUser.php", etEmail.getText().toString());
             }
         });
 
     }
 
+    class getUser extends AsyncTask<String, Void, String> {
+        String id, name, profile, kind;
 
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            Log.e("login-onPostExecute", "response - " + result);
+
+            if (result==null) {
+                Log.e("onPostExecute", "회원없음");
+                Intent intent1 = new Intent(getApplicationContext(),Signin2Activity.class);
+                intent1.putExtra("id",id);
+                intent1.putExtra("name",name);
+                intent1.putExtra("profile",profile);
+                startActivity(intent1);
+                finish();
+            } else {
+                if (result.contains("yes")) {
+                    // 이미 회원이 있을 때
+                    Intent intent = new Intent(getApplicationContext(), LoginpopActivity.class);
+                    startActivity(intent);
+                    etPassword.setText("");
+                    etPasswordConfirm.setText("");
+                    etEmail.setText("");
+                } else {
+                    {
+                        Log.e("onPostExecute", "회원없음");
+                        Intent intent1 = new Intent(getApplicationContext(),Signin2Activity.class);
+                        intent1.putExtra("id",id);
+                        intent1.putExtra("name",name);
+                        intent1.putExtra("profile",profile);
+                        startActivity(intent1);
+                        finish();
+                    }
+                }
+            }
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String serverURL = params[0];
+
+            id = params[1];
+
+            String postParameters = "id="+id;
+
+            try {
+                URL url = new URL(serverURL);
+
+                HttpURLConnection httpURLConnection= (HttpURLConnection)url.openConnection();
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);;
+
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.connect();
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                Log.e("postParameters", postParameters);
+                outputStream.flush();
+                outputStream.close();
+
+                // response
+                InputStream inputStream;
+                int responseStatusCode = httpURLConnection.getResponseCode();
+                String responseStatusMessage = httpURLConnection.getResponseMessage();
+                Log.e("response", "POST response Code - " + responseStatusCode);
+                Log.e("response", "POST response Message - "+ responseStatusMessage);
+
+                if (responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    // 정상적인 응답 데이터
+                    Log.e("inputstream: ", "정상적");
+                    inputStream = httpURLConnection.getInputStream();
+                } else {
+                    // error
+                    Log.e("inputstream: ", "비정상적: " + httpURLConnection.getErrorStream());
+                    inputStream = httpURLConnection.getErrorStream();
+                }
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line;
+
+                while((line = bufferedReader.readLine()) != null){
+                    sb.append(line);
+                }
+                bufferedReader.close();
+                return sb.toString().trim();
+
+            } catch (Exception e) {
+                Log.e("ERROR_loginActivity", "InsertDataError ", e);
+            }
+            return null;
+        }
+    }
 }
