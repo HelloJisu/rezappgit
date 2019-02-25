@@ -36,7 +36,7 @@ public class BluetoothConnectionService {
     private ConnectThread mConnectThread;
     private BluetoothDevice mmDevice;
     private UUID deviceUUID;
-    private boolean success=false;
+    public static boolean success=false;
 
     private ConnectedThread mConnectedThread;
 

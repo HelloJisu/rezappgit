@@ -27,12 +27,14 @@ import java.util.TimerTask;import java.util.UUID;
 
 public class BTOnActivity extends AppCompatActivity {
 
+    BluetoothAdapter mBtAdapter = BluetoothAdapter.getDefaultAdapter();
     int countDown;
     TextView txt1, txt2, txt3;
     Handler mHandler;
     Thread t;
     Button retry, no_retry;
     boolean isFound=false;
+    boolean nowInter=false;
     String action="";
     BluetoothDevice device;
     private static final UUID MY_UUID = UUID.fromString("00000003-0000-1000-8000-00805f9b34fb");
@@ -73,7 +75,13 @@ public class BTOnActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case R.id.retry:
-                        startThread();
+                        intent = new Intent(getApplicationContext(), BTOnActivity.class);
+                        startActivity(intent);
+                        finish();
+                        //txt2.setText(countDown+"초");
+                        //retry.setVisibility(View.INVISIBLE);
+                        //no_retry.setVisibility(View.INVISIBLE);
+                        //startThread();
                         break;
                 }
             }
@@ -99,7 +107,9 @@ public class BTOnActivity extends AppCompatActivity {
                     Log.e("countdown", String.valueOf(countDown));
                     // UI 작업 X
                     try {
-                        t.sleep(1000);
+                        if (!nowInter) {
+                            t.sleep(1000);
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -138,7 +148,7 @@ public class BTOnActivity extends AppCompatActivity {
         /** Start Broadcast Receiver */
         this.registerReceiver(mBroadcastReceiver1, filter1);
 
-        HomeActivity.mBtAdapter.startDiscovery();
+        mBtAdapter.startDiscovery();
     }
 
     private void bond() {
@@ -152,7 +162,7 @@ public class BTOnActivity extends AppCompatActivity {
     }
 
     public boolean connectToDevice(String address) {
-        device = HomeActivity.mBtAdapter.getRemoteDevice(address);
+        device = mBtAdapter.getRemoteDevice(address);
 
         /** Filtering Broadcast Receiver */
         IntentFilter filter3 = new IntentFilter();
@@ -163,7 +173,7 @@ public class BTOnActivity extends AppCompatActivity {
         /** Start Broadcast Receiver */
         this.registerReceiver(mBroadcastReceiver3, filter3);
 
-        if (HomeActivity.mBtAdapter == null || address == null) {
+        if (mBtAdapter == null || address == null) {
             Log.e("BT", "mBtAdapter==null & address==null");
             return false;
         }
@@ -204,6 +214,7 @@ public class BTOnActivity extends AppCompatActivity {
                     if (device.getName().equals("상아")) {
                         isFound = true;
                         Log.e(HomeActivity.devName, "디바이스 찾ㅇa!");
+                        nowInter=true;
                         t.interrupt();
                         unregisterReceiver(mBroadcastReceiver1);
                         if (device.getBondState()==BluetoothDevice.BOND_NONE) {
@@ -219,9 +230,19 @@ public class BTOnActivity extends AppCompatActivity {
                 }
             } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
                 Log.e("꺅!!", action);
-                t.interrupt();
-                intent = new Intent(getApplicationContext(), HomeActivity.class);
-                startActivity(intent);
+                if (BluetoothConnectionService.success) {
+                    t.interrupt();
+                    intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    startActivity(intent);
+                } else {
+                    txt2.setText("디바이스를 못 찾았어요");
+                    txt3.setText("0");
+                    nowInter=true;
+                    t.interrupt();
+                    retry.setVisibility(View.VISIBLE);
+                    no_retry.setVisibility(View.VISIBLE);
+                    Log.e("t.isInterrupted()", String.valueOf(t.isInterrupted()));
+                }
             }
         }
     };
