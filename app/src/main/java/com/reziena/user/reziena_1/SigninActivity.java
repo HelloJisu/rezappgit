@@ -169,12 +169,6 @@ public class SigninActivity extends AppCompatActivity {
 
                 getUser task = new getUser();
                 task.execute("http://"+HomeActivity.IP_Address+"/getUser.php", etEmail.getText().toString());
-
-                Intent intent = new Intent(getApplicationContext(),Signin2Activity.class);
-                intent.putExtra("id",etEmail.getText().toString());
-                intent.putExtra("password",etPassword.getText().toString());
-                startActivity(intent);
-                finish();
             }
         });
 
@@ -200,22 +194,11 @@ public class SigninActivity extends AppCompatActivity {
             } else {
                 if (result.contains("yes")) {
                     // 이미 회원이 있을 때
-                    /*SharedPreferences sp_userName = getSharedPreferences("userName", MODE_PRIVATE);
-                    SharedPreferences sp_userID = getSharedPreferences("userID", MODE_PRIVATE);
-                    SharedPreferences sp_profile = getSharedPreferences("profile", MODE_PRIVATE);
-                    SharedPreferences.Editor editor1 = sp_userName.edit();
-                    SharedPreferences.Editor editor2 = sp_userID.edit();
-                    SharedPreferences.Editor editor3 = sp_profile.edit();
-                    editor1.putString("userName", name);
-                    editor2.putString("userID", id);
-                    editor3.putString("profile", profile);
-                    editor1.commit();
-                    editor2.commit();
-                    editor3.commit();
-                    Log.e("Login ", name+"님 로그인");*/
                     Intent intent = new Intent(getApplicationContext(), LoginpopActivity.class);
                     startActivity(intent);
-                    //finish();
+                    etPassword.setText("");
+                    etPasswordConfirm.setText("");
+                    etEmail.setText("");
                 } else {
                     {
                         Log.e("onPostExecute", "회원없음");

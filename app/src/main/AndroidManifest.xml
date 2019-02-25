@@ -68,6 +68,9 @@
             android:name=".SettingActivity"
             android:theme="@style/NoTitleDialog" />
         <activity
+            android:name=".LoginnoActivity"
+            android:theme="@style/NoTitleDialog" />
+        <activity
             android:name=".LoginpopActivity"
             android:theme="@style/NoTitleDialog" />
         <activity

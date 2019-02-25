@@ -127,8 +127,13 @@ public class LoginmainActivity extends AppCompatActivity {
 
             if ((result == null)||(result.contains("No_results/"))){
                 // 아이디나 비번을 다시 확인해주세요!
+                Intent intent = new Intent(getApplicationContext(), LoginnoActivity.class);
+                startActivity(intent);
+                etID.setText("");
+                etPassword.setText("");
             } else {
                 // 로그인
+                showResult(result);
                 SharedPreferences sp_userName = getSharedPreferences("userName", MODE_PRIVATE);
                 SharedPreferences sp_userID = getSharedPreferences("userID", MODE_PRIVATE);
                 SharedPreferences.Editor editor1 = sp_userName.edit();
