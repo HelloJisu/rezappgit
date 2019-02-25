@@ -55,8 +55,8 @@ public class LoginmainActivity extends AppCompatActivity {
         alphalogin.setAlpha(50);
         alphasignin.setAlpha(50);
 
-        etID.setText("reziena");
-        //etPassword.setText("1234");
+        login.setEnabled(false);
+        signin.setEnabled(false);
 
 
         etID.addTextChangedListener(new TextWatcher() {
@@ -83,6 +83,7 @@ public class LoginmainActivity extends AppCompatActivity {
                         public void onTextChanged(CharSequence s, int start, int before, int count) {
                             String password = etPassword.getText().toString();
                             alphalogin.setAlpha(255);//알파값 20
+                            login.setEnabled(true);
                         }
 
                         @Override
