@@ -311,10 +311,10 @@ public class DoneActivity extends AppCompatActivity implements View.OnClickListe
                         positive.setText("Treat_right");
                     } else {
                         // 했으면
-                        Log.e("현재: under_left", "근데 너 uneye_r햇어"+String.valueOf(uneye_r));
+                        Log.e("현재: under_left", "너 uneye_r햇어"+String.valueOf(uneye_r));
                         oppositTxT.setText("finish");
                         non_positive.setText("------");
-                        positive.setText("go home");
+                        positive.setText("go back");
                     }
                 }
                 // underright
@@ -327,36 +327,42 @@ public class DoneActivity extends AppCompatActivity implements View.OnClickListe
                         positive.setText("Treat_left");
                     } else {
                         // 했으면
-                        Log.e("현재: under_right", "근데 너 uneye_l햇어"+String.valueOf(uneye_l));
+                        Log.e("현재: under_right", "너 uneye_l햇어"+String.valueOf(uneye_l));
                         oppositTxT.setText("finish");
                         non_positive.setText("------");
-                        positive.setText("go home");
+                        positive.setText("go back");
                     }
                 }
                 // cheekl
                 if (stringlist.equals("cheekleft")) {
                     if (!cheek_r) {
-                        // cheek_r을 안했으면
+                        // cheek_r 안했으면
+                        Log.e("현재: cheek_left", "근데 너 cheek_r안햇어"+String.valueOf(cheek_r));
                         oppositTxT.setText("opposit");
                         non_positive.setText("no");
-                        positive.setText("Treat_left");
+                        positive.setText("Treat_right");
                     } else {
                         // 했으면
+                        Log.e("현재: cheek_left", "너 cheek_r햇어"+String.valueOf(cheek_r));
                         oppositTxT.setText("finish");
                         non_positive.setText("------");
-                        positive.setText("go home");
+                        positive.setText("go back");
                     }
                 }
                 // cheekr
                 if (stringlist.equals("cheekright")) {
                     if (!cheek_l) {
-                        // cheek_l을 안했으면
+                        // cheek_l 안했으면
+                        Log.e("현재: cheek_right", "근데 너 cheek_l안햇어"+String.valueOf(cheek_l));
                         oppositTxT.setText("opposit");
+                        non_positive.setText("no");
+                        positive.setText("Treat_left");
                     } else {
                         // 했으면
+                        Log.e("현재: cheek_right", "너 cheek_l햇어"+String.valueOf(cheek_l));
                         oppositTxT.setText("finish");
                         non_positive.setText("------");
-                        positive.setText("go home");
+                        positive.setText("go back");
                     }
                 }
             }
