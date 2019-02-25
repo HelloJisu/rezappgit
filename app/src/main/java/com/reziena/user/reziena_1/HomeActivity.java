@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -15,8 +14,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -35,7 +32,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -66,14 +62,10 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-import java.util.TimeZone;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.UUID;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -82,7 +74,7 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 public class HomeActivity extends AppCompatActivity {
 
-    static BluetoothAdapter mBtAdapter;
+    BluetoothAdapter mBtAdapter;
     String deviceName;
     private String mDeviceAddress = "";
     LoginActivity loginActivity = (LoginActivity) LoginActivity.loginactivity;
@@ -97,14 +89,10 @@ public class HomeActivity extends AppCompatActivity {
 
     // 스마트폰끼리의 UUID
     private static final UUID MY_UUID = UUID.fromString("00000003-0000-1000-8000-00805f9b34fb");
-    private final static byte[] PIN  = {1, 2, 3, 4};
     private static final int REQUEST_LOCATION = 1;
     private static final int REQUEST_ENABLE_BT = 1;
 
-    int count; /**discovery된 device가 몇개인지*/
-    int countDown=45;
-    ArrayList<String> address = new ArrayList<>(); /** discovery한 address */
-    ArrayList<String> bondedDevice = new ArrayList<>();
+    int count;
 
 
     Animation alphaback;
