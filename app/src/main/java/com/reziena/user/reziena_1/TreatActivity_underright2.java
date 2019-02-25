@@ -54,7 +54,7 @@ public class TreatActivity_underright2 extends AppCompatActivity {
     public static Activity underrightactivity;
     ImageView forehead, underleft, underright, eyeleft, eyeright, cheekl, cheekr, mouth, back, backgroundimg;
     TextView component_txt,u_tright_txt1,u_tright_txt2,u_tleft_txt1,u_tleft_txt2,c_tright_txt1,c_tright_txt2,c_tleft_txt1,c_tleft_txt2;
-    int undercount=0, data=0, level=0, timer_sec, count=0;
+    int undercount=0, data=0, level=0, timer_sec, count_ur=0;
     ImageView u_tright_line1,u_tright_line2,u_tright_line3,u_tright_line4,u_tright_line5,u_tright_line6,
             u_tright_line7,u_tright_line8,u_tright_line9,u_tright_line10,u_tright_line11,u_tright_line12,u_tright_line13;
     TimerTask second;
@@ -66,12 +66,12 @@ public class TreatActivity_underright2 extends AppCompatActivity {
         second = new TimerTask() {
             @Override
             public void run() {
-                Log.e("undercount",String.valueOf(count));
-                count++;
+                Log.e("undercount",String.valueOf(count_ur));
+                count_ur++;
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                            if (count == 1) {
+                            if (count_ur == 1) {
                                 String str = "THIS COLUMN HAS 6 LINES.\nPLACE THE DEVICE TO THE COLORED LINE AS\nSHOWN. AND PRESS THE CENTER BUTTON TO\nSTART TREATING ONE LINE";
                                 SpannableStringBuilder ssb = new SpannableStringBuilder(str);
                                 ssb.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 72, 126, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -80,7 +80,7 @@ public class TreatActivity_underright2 extends AppCompatActivity {
                                 utrani8 = (AnimationDrawable) u_tright_line8.getBackground();
                                 utrani8.start();
                             }
-                            if (count == 2) {
+                            if (count_ur == 2) {
                                 utrani8.stop();
                                 u_tright_line8.setBackgroundResource(R.drawable.line8finish);
                                 u_tright_line9.setBackgroundResource(R.drawable.underrightanim1);
@@ -88,7 +88,7 @@ public class TreatActivity_underright2 extends AppCompatActivity {
                                 utrani9.start();
                                 u_tright_txt1.setText("5 left");
                             }
-                            if (count == 3) {
+                            if (count_ur == 3) {
                                 utrani9.stop();
                                 u_tright_line9.setBackgroundResource(R.drawable.line8finish);
                                 u_tright_line10.setBackgroundResource(R.drawable.underrightanim1);
@@ -96,7 +96,7 @@ public class TreatActivity_underright2 extends AppCompatActivity {
                                 utrani10.start();
                                 u_tright_txt1.setText("4 left");
                             }
-                            if (count == 4) {
+                            if (count_ur == 4) {
                                 utrani10.stop();
                                 u_tright_line10.setBackgroundResource(R.drawable.line8finish);
                                 u_tright_line11.setBackgroundResource(R.drawable.underrightmiddle1);
@@ -104,7 +104,7 @@ public class TreatActivity_underright2 extends AppCompatActivity {
                                 utrani11.start();
                                 u_tright_txt1.setText("3 left");
                             }
-                            if (count == 5) {
+                            if (count_ur == 5) {
                                 utrani11.stop();
                                 u_tright_line11.setBackgroundResource(R.drawable.line8finish);
                                 u_tright_line12.setBackgroundResource(R.drawable.underrightanim1);
@@ -112,7 +112,7 @@ public class TreatActivity_underright2 extends AppCompatActivity {
                                 utrani12.start();
                                 u_tright_txt1.setText("2 left");
                             }
-                            if (count == 6) {
+                            if (count_ur == 6) {
                                 utrani12.stop();
                                 u_tright_line12.setBackgroundResource(R.drawable.line8finish);
                                 u_tright_line13.setBackgroundResource(R.drawable.underrightanim1);
@@ -120,7 +120,7 @@ public class TreatActivity_underright2 extends AppCompatActivity {
                                 utrani13.start();
                                 u_tright_txt1.setText("1 left");
                             }
-                            if (count == 7) {
+                            if (count_ur == 7) {
                                 String str = "THIS COLUMN HAS 7 LINES.\nPLACE THE DEVICE TO THE COLORED LINE AS\nSHOWN. AND PRESS THE CENTER BUTTON TO\nSTART TREATING ONE LINE";
                                 SpannableStringBuilder ssb = new SpannableStringBuilder(str);
                                 ssb.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 72, 126, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -132,7 +132,7 @@ public class TreatActivity_underright2 extends AppCompatActivity {
                                 u_tright_txt1.setText("DONE");
                                 u_tright_txt1.setTextColor(Color.parseColor("#9E0958"));
                             }
-                            if (count == 8) {
+                            if (count_ur == 8) {
                                 utrani1.stop();
                                 u_tright_line1.setBackgroundResource(R.drawable.line1finish);
                                 u_tright_line2.setBackgroundResource(R.drawable.underrightanim2);
@@ -140,7 +140,7 @@ public class TreatActivity_underright2 extends AppCompatActivity {
                                 utrani2.start();
                                 u_tright_txt2.setText("6 left");
                             }
-                            if (count == 9) {
+                            if (count_ur == 9) {
                                 utrani2.stop();
                                 u_tright_line2.setBackgroundResource(R.drawable.line1finish);
                                 u_tright_line3.setBackgroundResource(R.drawable.underrightanim2);
@@ -148,7 +148,7 @@ public class TreatActivity_underright2 extends AppCompatActivity {
                                 utrani3.start();
                                 u_tright_txt2.setText("5 left");
                             }
-                            if (count == 10) {
+                            if (count_ur == 10) {
                                 utrani3.stop();
                                 u_tright_line3.setBackgroundResource(R.drawable.line1finish);
                                 u_tright_line4.setBackgroundResource(R.drawable.underrightmiddle2);
@@ -156,7 +156,7 @@ public class TreatActivity_underright2 extends AppCompatActivity {
                                 utrani4.start();
                                 u_tright_txt2.setText("4 left");
                             }
-                            if (count == 11) {
+                            if (count_ur == 11) {
                                 utrani4.stop();
                                 u_tright_line4.setBackgroundResource(R.drawable.line1finish);
                                 u_tright_line5.setBackgroundResource(R.drawable.underrightanim2);
@@ -164,7 +164,7 @@ public class TreatActivity_underright2 extends AppCompatActivity {
                                 utrani5.start();
                                 u_tright_txt2.setText("3 left");
                             }
-                            if (count == 12) {
+                            if (count_ur == 12) {
                                 utrani5.stop();
                                 u_tright_line5.setBackgroundResource(R.drawable.line1finish);
                                 u_tright_line6.setBackgroundResource(R.drawable.underrightanim2);
@@ -172,14 +172,14 @@ public class TreatActivity_underright2 extends AppCompatActivity {
                                 utrani6.start();
                                 u_tright_txt2.setText("2 left");
                             }
-                            if (count == 13) {
+                            if (count_ur == 13) {
                                 utrani6.stop();
                                 u_tright_line6.setBackgroundResource(R.drawable.line1finish);
                                 u_tright_line7.setBackgroundResource(R.drawable.underrightanim2);
                                 utrani7 = (AnimationDrawable) u_tright_line7.getBackground();
                                 utrani7.start();
                                 u_tright_txt2.setText("1 left");
-                            } if (count >= 14) {
+                            } if (count_ur >= 14) {
                                 u_tright_line7.setBackgroundResource(R.drawable.line1finish);
                                 component_txt.setText("GOOD JOB");
                                 u_tright_txt2.setText("DONE");
@@ -187,7 +187,7 @@ public class TreatActivity_underright2 extends AppCompatActivity {
                                 data=25;
                                 underrightstring="true";
                         }
-                        if(count==15){
+                        if(count_ur==15){
                             setData task = new setData();
                             task.execute("http://"+HomeActivity.IP_Address+"/saveTreat.php", "uneye_r");
                             Log.e("underright", "save");
@@ -305,7 +305,7 @@ public class TreatActivity_underright2 extends AppCompatActivity {
 
     public void onPause() {
         super.onPause();
-        count = 0;
+        //count_ur = 0;
     }
     public void screenshot(){
         rs = RenderScript.create(this);

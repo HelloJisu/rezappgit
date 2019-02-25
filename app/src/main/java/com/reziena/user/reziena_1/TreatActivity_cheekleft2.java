@@ -379,7 +379,7 @@ public class TreatActivity_cheekleft2 extends AppCompatActivity {
 
     public void onPause() {
         super.onPause();
-        count = 0;
+        //count = 0;
     }
 
     public void screenshot(){

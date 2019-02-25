@@ -53,6 +53,9 @@ public class SigninActivity extends AppCompatActivity {
         alphalogin.setAlpha(50);
         alphasignin.setAlpha(50);
 
+        login_signin.setEnabled(false);
+        signin_signin.setEnabled(false);
+
 
         etEmail.addTextChangedListener(new TextWatcher() {
             @Override
@@ -79,18 +82,31 @@ public class SigninActivity extends AppCompatActivity {
                         public void onTextChanged(CharSequence s, int start, int before, int count) {
                             String password = etPassword.getText().toString();
                             String confirm = etPasswordConfirm.getText().toString();
-
-                            if( password.equals(confirm) ) {
-                                logincheck.setVisibility(View.VISIBLE);
-                                etPasswordConfirm.setTextColor(Color.parseColor("#450969"));
-                                logincheck.setImageResource(R.drawable.logincheck);
-                                alphasignin.setAlpha(255);//알파값 20
-
-                            } else {
-                                logincheck.setVisibility(View.VISIBLE);
-                                etPasswordConfirm.setTextColor(Color.parseColor("#9E0958"));
-                                logincheck.setImageResource(R.drawable.loginx);
-
+                            if(s.length()==0){
+                                logincheck.setVisibility(View.INVISIBLE);
+                            }
+                            else {
+                                if(s.length()>=6&&s.length()<=12) {
+                                    if (password.equals(confirm)) {
+                                        logincheck.setVisibility(View.VISIBLE);
+                                        etPasswordConfirm.setTextColor(Color.parseColor("#450969"));
+                                        logincheck.setImageResource(R.drawable.logincheck);
+                                        alphasignin.setAlpha(255);//알파값 20
+                                        signin_signin.setEnabled(true);
+                                    } else {
+                                        logincheck.setVisibility(View.VISIBLE);
+                                        etPasswordConfirm.setTextColor(Color.parseColor("#9E0958"));
+                                        logincheck.setImageResource(R.drawable.loginx);
+                                        alphasignin.setAlpha(50);//알파값 20
+                                        signin_signin.setEnabled(false);
+                                    }
+                                }
+                                else{
+                                    alphasignin.setAlpha(50);//알파값 20
+                                    signin_signin.setEnabled(false);
+                                    logincheck.setVisibility(View.VISIBLE);
+                                    logincheck.setImageResource(R.drawable.loginx);
+                                }
                             }
                         }
 
@@ -100,7 +116,7 @@ public class SigninActivity extends AppCompatActivity {
                         }
                     });
 
-                    etPasswordConfirm.addTextChangedListener(new TextWatcher() {
+                    etPassword.addTextChangedListener(new TextWatcher() {
                         @Override
                         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -110,27 +126,57 @@ public class SigninActivity extends AppCompatActivity {
                         public void onTextChanged(CharSequence s, int start, int before, int count) {
                             String password = etPassword.getText().toString();
                             String confirm = etPasswordConfirm.getText().toString();
-
-                            if(password.equals(confirm)){
-
+                            Log.e("password",password);
+                            Log.e("password",confirm);
+                            if(s.length()==0){
+                                logincheck.setVisibility(View.INVISIBLE);
                             }
-                            else{
+                            else {
+                                if(s.length()>=6 ) {
+                                    if (password.equals(confirm)) {
+                                        logincheck.setVisibility(View.VISIBLE);
+                                        etPasswordConfirm.setTextColor(Color.parseColor("#450969"));
+                                        logincheck.setImageResource(R.drawable.logincheck);
+                                        alphasignin.setAlpha(255);//알파값 20
+                                        signin_signin.setEnabled(true);
 
+                                    } else {
+                                        logincheck.setVisibility(View.VISIBLE);
+                                        etPasswordConfirm.setTextColor(Color.parseColor("#9E0958"));
+                                        logincheck.setImageResource(R.drawable.loginx);
+                                        alphasignin.setAlpha(50);//알파값 20
+                                        signin_signin.setEnabled(false);
+                                    }
+                                }
+                                else{
+                                    alphasignin.setAlpha(50);//알파값 20
+                                    signin_signin.setEnabled(false);
+                                    logincheck.setVisibility(View.VISIBLE);
+                                    logincheck.setImageResource(R.drawable.loginx);
+                                }
                             }
                         }
 
                         @Override
                         public void afterTextChanged(Editable s) {
-
+                            String confirm = etPasswordConfirm.getText().toString();
+                            if(confirm==null){
+                                logincheck.setVisibility(View.INVISIBLE);
+                            }
                         }
                     });
                 } else {
-
+                    etEmail.setTextColor(Color.parseColor("#9E0958"));
+                    alphasignin.setAlpha(50);//알파값 20
+                    signin_signin.setEnabled(false);
+                    logincheck.setVisibility(View.INVISIBLE);
                 }
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+
+            }
         });
 
         signin_signin.setOnClickListener(new View.OnClickListener() {

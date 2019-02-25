@@ -81,9 +81,14 @@ public class LoginmainActivity extends AppCompatActivity {
                         @SuppressLint("Range")
                         @Override
                         public void onTextChanged(CharSequence s, int start, int before, int count) {
-                            String password = etPassword.getText().toString();
-                            alphalogin.setAlpha(255);//알파값 20
-                            login.setEnabled(true);
+                            if(s.length()==0){
+                                alphalogin.setAlpha(50);//알파값 20
+                                login.setEnabled(false);
+                            }
+                            else{
+                                alphalogin.setAlpha(255);//알파값 20
+                                login.setEnabled(true);
+                            }
                         }
 
                         @Override
@@ -93,12 +98,15 @@ public class LoginmainActivity extends AppCompatActivity {
                     });
                 }
                 else{
-
+                    alphalogin.setAlpha(50);//알파값 20
+                    login.setEnabled(false);
                 }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+
+
 
             }
         });
