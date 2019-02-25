@@ -214,7 +214,7 @@ public class BTOnActivity extends AppCompatActivity {
                     if (device.getName().equals("상아")) {
                         isFound = true;
                         Log.e(HomeActivity.devName, "디바이스 찾ㅇa!");
-                        nowInter=true;
+                        //nowInter=true;
                         t.interrupt();
                         unregisterReceiver(mBroadcastReceiver1);
                         if (device.getBondState()==BluetoothDevice.BOND_NONE) {
@@ -280,6 +280,7 @@ public class BTOnActivity extends AppCompatActivity {
                 unregisterReceiver(mBroadcastReceiver3);
                 Intent intent2 = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(intent2);
+                finish();
                 Toast toast = Toast.makeText(getApplicationContext(), "Connected", Toast.LENGTH_SHORT);
                 toast.show();
             }

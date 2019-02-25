@@ -917,7 +917,8 @@ public class HomeActivity extends AppCompatActivity {
             String serverURL = params[0];
 
             SharedPreferences sp_userID = getSharedPreferences("userID", MODE_PRIVATE);
-            String userID = sp_userID.getString("userID", "");
+            String userID = sp_userID.getString("userID", "userID=none");
+            Log.e("userID:::", userID);
             String postParameters = "id="+userID;
 
             try {

@@ -147,10 +147,11 @@ public class LoginmainActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor1 = sp_userName.edit();
                 SharedPreferences.Editor editor2 = sp_userID.edit();
                 editor1.putString("userName", getName);
-                editor2.putString("userID", id);
+                editor2.putString("userID", saveID);
                 editor1.commit();
                 editor2.commit();
                 Log.e("Login ", getName+"님 로그인");
+                Log.e("Login ", saveID+"님 아이디");
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(intent);
                 finish();
@@ -178,7 +179,7 @@ public class LoginmainActivity extends AppCompatActivity {
 
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 outputStream.write(postParameters.getBytes("UTF-8"));
-                Log.e("postParameters", postParameters);
+                Log.e("loginmainPostParameters", postParameters);
                 outputStream.flush();
                 outputStream.close();
 
