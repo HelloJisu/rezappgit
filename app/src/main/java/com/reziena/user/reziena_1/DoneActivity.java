@@ -434,24 +434,6 @@ public class DoneActivity extends AppCompatActivity implements View.OnClickListe
             if (result.contains("cheek_r")) cheek_r=true;
             Log.e("un_l, un_r, ch_l, ch_r", String.valueOf(uneye_l)+String.valueOf(uneye_r)+String.valueOf(cheek_l)+String.valueOf(cheek_r));
         }
-
-        /*private void showResult(String result){
-            try {
-                JSONObject jsonObject = new JSONObject(result);
-                JSONArray jsonArray = jsonObject.getJSONArray("getData");
-
-                for(int i=0;i<jsonArray.length();i++){
-
-                    JSONObject item = jsonArray.getJSONObject(i);
-                    treatResult+=item.getString("value");
-                }
-                Log.e("treatResult", treatResult);
-
-            } catch (JSONException e) {
-                Log.d("treat1-JSON", "showResult : "+e.getMessage());
-            }
-
-        }*/
     }
 
     public boolean dispatchTouchEvent(MotionEvent ev){
