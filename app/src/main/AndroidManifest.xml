@@ -77,6 +77,9 @@
             android:name=".SkintypeActivity"
             android:theme="@style/NoTitleDialog" />
         <activity
+            android:name=".LoginnoActivity"
+            android:theme="@style/NoTitleDialog" />
+        <activity
             android:name=".WrinkleResultActivity"
             android:theme="@style/NoTitleDialog" />
         <activity
