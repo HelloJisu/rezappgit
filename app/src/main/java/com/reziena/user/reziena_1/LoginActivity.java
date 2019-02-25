@@ -474,7 +474,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     class getUser extends AsyncTask<String, Void, String> {
-        String id, name, profile, kind;
+        String saveID, saveName, saveProfile, kind;
 
         @Override
         protected void onPostExecute(String result) {
@@ -485,9 +485,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             if (result==null) {
                 Log.e("onPostExecute", "회원없음");
                 Intent intent1 = new Intent(getApplicationContext(),Signin2Activity.class);
-                intent1.putExtra("id",id);
-                intent1.putExtra("name",name);
-                intent1.putExtra("profile",profile);
+                intent1.putExtra("id",saveID);
+                intent1.putExtra("name",saveName);
+                intent1.putExtra("profile",saveProfile);
                 startActivity(intent1);
                 finish();
             } else {
@@ -498,13 +498,13 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     SharedPreferences.Editor editor1 = sp_userName.edit();
                     SharedPreferences.Editor editor2 = sp_userID.edit();
                     SharedPreferences.Editor editor3 = sp_profile.edit();
-                    editor1.putString("userName", name);
-                    editor2.putString("userID", id);
-                    editor3.putString("profile", profile);
+                    editor1.putString("userName", saveName);
+                    editor2.putString("userID", saveID);
+                    editor3.putString("profile", saveProfile);
                     editor1.commit();
                     editor2.commit();
                     editor3.commit();
-                    Log.e("Login ", name+"님 로그인");
+                    Log.e("Login ", saveName+"님 로그인");
                     Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                     startActivity(intent);
                     finish();
@@ -512,9 +512,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     {
                         Log.e("onPostExecute", "회원없음");
                         Intent intent1 = new Intent(getApplicationContext(),Signin2Activity.class);
-                        intent1.putExtra("id",id);
-                        intent1.putExtra("name",name);
-                        intent1.putExtra("profile",profile);
+                        intent1.putExtra("id",saveID);
+                        intent1.putExtra("name",saveName);
+                        intent1.putExtra("profile",saveProfile);
                         startActivity(intent1);
                         finish();
                     }
@@ -526,14 +526,14 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         protected String doInBackground(String... params) {
             String serverURL = params[0];
 
-            id = params[1];
-            name = params[2];
-            profile = params[3];
+            saveID = params[1];
+            saveName = params[2];
+            saveProfile = params[3];
             kind = params[4];
 
-            id += "_"+kind;
+            saveID += "_"+kind;
 
-            String postParameters = "id="+id;
+            String postParameters = "id="+saveID;
 
             try {
                 URL url = new URL(serverURL);
